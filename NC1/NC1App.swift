@@ -12,9 +12,11 @@ import SwiftData
 struct NC1App: App {
     var sharedModelContainer: ModelContainer = {
         let schema = Schema([
-            Item.self,
+            Journey.self,
+            Block.self
         ])
-        let modelConfiguration = ModelConfiguration(schema: schema, isStoredInMemoryOnly: false)
+        
+        let modelConfiguration = ModelConfiguration(schema: schema, isStoredInMemoryOnly: true)
 
         do {
             return try ModelContainer(for: schema, configurations: [modelConfiguration])
@@ -25,9 +27,11 @@ struct NC1App: App {
 
     var body: some Scene {
         WindowGroup {
-            ContentView()
+            DiaryView()
+//            ContentView()
 //            ListDropDown()
         }
+//        .modelContainer(for: [Journey.self, Block.self])
         .modelContainer(sharedModelContainer)
         .environment(\.locale, .init(identifier: "ko_KR"))
     }

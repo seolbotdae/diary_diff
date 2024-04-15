@@ -10,21 +10,24 @@ import SwiftData
 
 @Model
 final class Block {
+    var id: UUID
+    // 소속 journey
+    @Relationship(inverse: \Journey.blocks)
     var journey: Journey?
-    
     // 임시로 String 해둔것
     var photo: String?
-    
+
     var prevContent: String?
     var currentContent: String?
     
-    var isThumbnail: Bool
+    var order: Int = 0
     
-    init(journey: Journey? = nil, photo: String? = nil, prevContent: String? = nil, currentContent: String? = nil) {
+    init(id: UUID, journey: Journey? = nil, photo: String? = nil, prevContent: String? = nil, currentContent: String? = nil, order: Int) {
+        self.id = id
         self.journey = journey
         self.photo = photo
         self.prevContent = prevContent
         self.currentContent = currentContent
-        self.isThumbnail = false
+        self.order = order
     }
 }

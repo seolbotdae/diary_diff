@@ -10,14 +10,16 @@ import SwiftData
 
 @Model
 final class Journey {
-    var timestamp: Date
+    @Attribute(.unique)
+    var id: Int
     
-    var blocks: [Block]
+    @Relationship
+    var blocks: [Block] = []
     
-    var thumbnail: Block
-    
-    init(timestamp: Date, blocks: [Block], thumbnail: Block) {
-        self.timestamp = timestamp
+    var thumbnail: Block?
+  
+    init(id: Int, blocks: [Block], thumbnail: Block? = nil) {
+        self.id = id
         self.blocks = blocks
         self.thumbnail = thumbnail
     }
