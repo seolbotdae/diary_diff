@@ -18,32 +18,64 @@ struct NextDayBlockSheetView: View {
     var block: TempBlock = TempBlock(id: UUID())
     
     var body: some View {
-        Text("내용을 입력해보시오")
-            .font(.title)
-        
-        TextEditor(text: $inputText)
-            .onAppear {
-                let blockIdx = blocks.firstIndex { B in
-                    B.id == selectedBlockId
+        VStack {
+            TextEditor(text: $inputText)
+                .onAppear {
+                    let blockIdx = blocks.firstIndex { B in
+                        B.id == selectedBlockId
+                    }
+                    
+                    inputText = blocks[blockIdx ?? 0].content
+                    
+                    textEditorFocus.toggle()
                 }
-                
-                inputText = blocks[blockIdx ?? 0].content
-                
-                textEditorFocus.toggle()
-            }
-            .focused($textEditorFocus)
-        
-        Button {
-            let blockIdx = blocks.firstIndex { B in
-                B.id == selectedBlockId
-            }
-            
-            blocks[blockIdx ?? 0].content = inputText
-            
-            isSheetShow.toggle()
-        } label: {
-            Text("저장")
+                .focused($textEditorFocus)
         }
+        .navigationTitle("내용 입력")
+        .navigationBarTitleDisplayMode(.inline)
+        .toolbar {
+            ToolbarItem(placement: .topBarLeading) {
+                Button {
+                    let idx = blocks.firstIndex { T in
+                        T.id == selectedBlockId
+                    }
+                    
+                    if let target = idx {
+                        if blocks[target].content == "" {
+                            blocks.remove(at: target)
+                        }
+                    }
+                    
+                    isSheetShow.toggle()
+                } label: {
+                    Text("취소")
+                }
+            }
+            
+            ToolbarItem(placement: .topBarTrailing) {
+                Button {
+                    let blockIdx = blocks.firstIndex { B in
+                        B.id == selectedBlockId
+                    }
+                    
+                    blocks[blockIdx ?? 0].content = inputText
+                    
+                    let idx = blocks.firstIndex { T in
+                        T.id == selectedBlockId
+                    }
+                    
+                    if let target = idx {
+                        if blocks[target].content == "" {
+                            blocks.remove(at: target)
+                        }
+                    }
+                    
+                    isSheetShow.toggle()
+                } label: {
+                    Text("저장")
+                }
+            }
+        }
+        .interactiveDismissDisabled()
     }
-
 }

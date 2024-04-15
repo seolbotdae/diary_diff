@@ -13,54 +13,57 @@ struct DiaryView: View {
     @State private var nextDayJourneyId = Date.getDateId(date: Date() + 86400)
     @State private var currentDayJourneyId = Date.getDateId(date: Date())
     
+    let currentMonthDay: String
+    
     @Query private var nextDayJourney: [Journey]
     @Query private var currentDayJourney: [Journey]
     
     var body: some View {
-        GroupBox {
-            ForEach(nextDayJourney) { item in
-                NavigationLink {
-                    NextDayDiaryView(journey: item)
-                } label: {
-                    Text(String(item.id))
-                }
-            }
-            
-            Button {
-                if !nextDayJourney.isEmpty {
-                    print(nextDayJourney[0].blocks)
-                }
+        VStack {
+            NavigationLink {
+                NextDayDiaryView(journeyDate: (Date() + 86400))
             } label: {
-                Text("확인")
-            }
-        }
-        
-        
-        
-        //            NavigationLink {
-        //                NextDayDiaryView(journeyDate: Date())
-        //            } label: {
-        //                GroupBox {
-        //                    ForEach(currentDayJourney) { item in
-        //                        Text(String(item.id))
-        //                    }
-        //                }
-        //            }
-        
-        .onAppear {
-            if nextDayJourney.isEmpty {
-                modelContext.insert(Journey(id: nextDayJourneyId, blocks: []))
-            }
-            
-            if currentDayJourney.isEmpty {
-                modelContext.insert(Journey(id: currentDayJourneyId, blocks: []))
-            }
-        }
-        
+                GroupBox {
+                    VStack {
+                        HStack(alignment: .center) {
+                            Text("내일의 일기")
+                                .font(.title)
+                            
+                            Spacer()
+                            
+                            Text(currentMonthDay)
+                                .font(.title2)
+                                .foregroundStyle(.gray)
+                        }
+                        .padding(.bottom, 1)
 
+                        HStack(alignment: .center) {
+                            if nextDayJourney.count >= 1 {
+                                if nextDayJourney[0].blocks.count > 0 {
+                                    Text("작성된 일기가 있습니다. 내일 확인해 보세요!")
+                                } else {
+                                    Text("아직 일기를 작성하지 않았습니다.")
+                                }
+                            } else {
+                                Text("아직 일기를 작성하지 않았습니다.")
+                            }
+                        }
+                    }
+                }
+            }
+            .buttonStyle(PlainButtonStyle())
+            
+            Spacer()
+        }
+        .padding(.top, 20)
+        .padding(.horizontal, 16)
     }
     
     init() {
+        let fomatter = DateFormatter()
+        fomatter.dateFormat = "M월 d일"
+        self.currentMonthDay = fomatter.string(from: Date() + 86400)
+        
         let nextDateId = Date.getDateId(date: Date() + 86400)
         let currentDateId = Date.getDateId(date: Date())
         
