@@ -10,6 +10,7 @@ import SwiftData
 
 @Model
 final class Block {
+    @Attribute(.unique)
     var id: UUID
     // 소속 journey
     @Relationship(inverse: \Journey.blocks)

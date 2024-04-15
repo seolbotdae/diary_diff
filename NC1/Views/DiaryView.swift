@@ -18,26 +18,35 @@ struct DiaryView: View {
     
     var body: some View {
         NavigationStack {
-            NavigationLink {
-                NextDayDiaryView(date: Date() + 86400)
-            } label: {
-                GroupBox {
-                    ForEach(nextDayJourney) { item in
+            GroupBox {
+                ForEach(nextDayJourney) { item in
+                    NavigationLink {
+                        NextDayDiaryView(journey: item)
+                    } label: {
                         Text(String(item.id))
                     }
                 }
+                
+                Button {
+                    if !nextDayJourney.isEmpty {
+                        print(nextDayJourney[0].blocks)
+                    }
+                } label: {
+                    Text("확인")
+                }
             }
+            
            
             
-            NavigationLink {
-                NextDayDiaryView(date: Date())
-            } label: {
-                GroupBox {
-                    ForEach(currentDayJourney) { item in
-                        Text(String(item.id))
-                    }
-                }
-            }
+//            NavigationLink {
+//                NextDayDiaryView(journeyDate: Date())
+//            } label: {
+//                GroupBox {
+//                    ForEach(currentDayJourney) { item in
+//                        Text(String(item.id))
+//                    }
+//                }
+//            }
             
         }
         .onAppear {

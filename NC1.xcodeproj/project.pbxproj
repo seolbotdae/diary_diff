@@ -9,7 +9,6 @@
 /* Begin PBXBuildFile section */
 		4C6E48682BCAC9A9006BDBFE /* NC1App.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C6E48672BCAC9A9006BDBFE /* NC1App.swift */; };
 		4C6E486A2BCAC9A9006BDBFE /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C6E48692BCAC9A9006BDBFE /* ContentView.swift */; };
-		4C6E486C2BCAC9A9006BDBFE /* Item.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C6E486B2BCAC9A9006BDBFE /* Item.swift */; };
 		4C6E486E2BCAC9AB006BDBFE /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 4C6E486D2BCAC9AB006BDBFE /* Assets.xcassets */; };
 		4C6E48712BCAC9AB006BDBFE /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 4C6E48702BCAC9AB006BDBFE /* Preview Assets.xcassets */; };
 		4C6E48782BCACCDA006BDBFE /* ListDropDown.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C6E48772BCACCDA006BDBFE /* ListDropDown.swift */; };
@@ -17,7 +16,8 @@
 		4C6E487E2BCBC3B7006BDBFE /* Journey.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C6E487D2BCBC3B7006BDBFE /* Journey.swift */; };
 		4C6E48812BCBC97F006BDBFE /* Date+DateFormatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C6E48802BCBC97F006BDBFE /* Date+DateFormatter.swift */; };
 		4CC4A0882BCCF99500A31EB0 /* NextDayDiaryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CC4A0872BCCF99500A31EB0 /* NextDayDiaryView.swift */; };
-		4CC4A08A2BCD025300A31EB0 /* AddBlockView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CC4A0892BCD025300A31EB0 /* AddBlockView.swift */; };
+		4CC4A08A2BCD025300A31EB0 /* NextDayBlockSheetView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CC4A0892BCD025300A31EB0 /* NextDayBlockSheetView.swift */; };
+		4CC4A08D2BCD5C2B00A31EB0 /* TabSplitView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CC4A08C2BCD5C2B00A31EB0 /* TabSplitView.swift */; };
 		4CE31C1D2BCC03DC002FF801 /* DiaryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CE31C1C2BCC03DC002FF801 /* DiaryView.swift */; };
 /* End PBXBuildFile section */
 
@@ -25,7 +25,6 @@
 		4C6E48642BCAC9A9006BDBFE /* NC1.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = NC1.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		4C6E48672BCAC9A9006BDBFE /* NC1App.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NC1App.swift; sourceTree = "<group>"; };
 		4C6E48692BCAC9A9006BDBFE /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
-		4C6E486B2BCAC9A9006BDBFE /* Item.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Item.swift; sourceTree = "<group>"; };
 		4C6E486D2BCAC9AB006BDBFE /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		4C6E48702BCAC9AB006BDBFE /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		4C6E48772BCACCDA006BDBFE /* ListDropDown.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListDropDown.swift; sourceTree = "<group>"; };
@@ -33,7 +32,8 @@
 		4C6E487D2BCBC3B7006BDBFE /* Journey.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Journey.swift; sourceTree = "<group>"; };
 		4C6E48802BCBC97F006BDBFE /* Date+DateFormatter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Date+DateFormatter.swift"; sourceTree = "<group>"; };
 		4CC4A0872BCCF99500A31EB0 /* NextDayDiaryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NextDayDiaryView.swift; sourceTree = "<group>"; };
-		4CC4A0892BCD025300A31EB0 /* AddBlockView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddBlockView.swift; sourceTree = "<group>"; };
+		4CC4A0892BCD025300A31EB0 /* NextDayBlockSheetView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NextDayBlockSheetView.swift; sourceTree = "<group>"; };
+		4CC4A08C2BCD5C2B00A31EB0 /* TabSplitView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabSplitView.swift; sourceTree = "<group>"; };
 		4CE31C1C2BCC03DC002FF801 /* DiaryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiaryView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -88,7 +88,6 @@
 		4C6E48792BCBC2EF006BDBFE /* Models */ = {
 			isa = PBXGroup;
 			children = (
-				4C6E486B2BCAC9A9006BDBFE /* Item.swift */,
 				4C6E487B2BCBC359006BDBFE /* Block.swift */,
 				4C6E487D2BCBC3B7006BDBFE /* Journey.swift */,
 			);
@@ -98,11 +97,11 @@
 		4C6E487A2BCBC308006BDBFE /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				4CC4A08B2BCD16F000A31EB0 /* NextDay */,
 				4C6E48772BCACCDA006BDBFE /* ListDropDown.swift */,
 				4C6E48692BCAC9A9006BDBFE /* ContentView.swift */,
 				4CE31C1C2BCC03DC002FF801 /* DiaryView.swift */,
-				4CC4A0872BCCF99500A31EB0 /* NextDayDiaryView.swift */,
-				4CC4A0892BCD025300A31EB0 /* AddBlockView.swift */,
+				4CC4A08C2BCD5C2B00A31EB0 /* TabSplitView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -113,6 +112,15 @@
 				4C6E48802BCBC97F006BDBFE /* Date+DateFormatter.swift */,
 			);
 			path = Extensions;
+			sourceTree = "<group>";
+		};
+		4CC4A08B2BCD16F000A31EB0 /* NextDay */ = {
+			isa = PBXGroup;
+			children = (
+				4CC4A0892BCD025300A31EB0 /* NextDayBlockSheetView.swift */,
+				4CC4A0872BCCF99500A31EB0 /* NextDayDiaryView.swift */,
+			);
+			path = NextDay;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -185,13 +193,13 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				4CC4A08A2BCD025300A31EB0 /* AddBlockView.swift in Sources */,
+				4CC4A08A2BCD025300A31EB0 /* NextDayBlockSheetView.swift in Sources */,
 				4C6E487E2BCBC3B7006BDBFE /* Journey.swift in Sources */,
 				4C6E486A2BCAC9A9006BDBFE /* ContentView.swift in Sources */,
-				4C6E486C2BCAC9A9006BDBFE /* Item.swift in Sources */,
 				4C6E48812BCBC97F006BDBFE /* Date+DateFormatter.swift in Sources */,
 				4CC4A0882BCCF99500A31EB0 /* NextDayDiaryView.swift in Sources */,
 				4C6E487C2BCBC359006BDBFE /* Block.swift in Sources */,
+				4CC4A08D2BCD5C2B00A31EB0 /* TabSplitView.swift in Sources */,
 				4C6E48782BCACCDA006BDBFE /* ListDropDown.swift in Sources */,
 				4CE31C1D2BCC03DC002FF801 /* DiaryView.swift in Sources */,
 				4C6E48682BCAC9A9006BDBFE /* NC1App.swift in Sources */,

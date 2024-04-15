@@ -7,9 +7,10 @@
 
 import SwiftUI
 
-struct AddBlockView: View {
+struct NextDayBlockSheetView: View {
     @Binding var isSheetShow: Bool
     @Binding var blocks: [TempBlock]
+    @FocusState var textEditorFocus: Bool
     var selectedBlockId: UUID
     
     @State var inputText: String = ""
@@ -27,7 +28,10 @@ struct AddBlockView: View {
                 }
                 
                 inputText = blocks[blockIdx ?? 0].content
+                
+                textEditorFocus.toggle()
             }
+            .focused($textEditorFocus)
         
         Button {
             let blockIdx = blocks.firstIndex { B in
