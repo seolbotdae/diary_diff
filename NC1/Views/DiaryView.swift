@@ -17,38 +17,36 @@ struct DiaryView: View {
     @Query private var currentDayJourney: [Journey]
     
     var body: some View {
-        NavigationStack {
-            GroupBox {
-                ForEach(nextDayJourney) { item in
-                    NavigationLink {
-                        NextDayDiaryView(journey: item)
-                    } label: {
-                        Text(String(item.id))
-                    }
-                }
-                
-                Button {
-                    if !nextDayJourney.isEmpty {
-                        print(nextDayJourney[0].blocks)
-                    }
+        GroupBox {
+            ForEach(nextDayJourney) { item in
+                NavigationLink {
+                    NextDayDiaryView(journey: item)
                 } label: {
-                    Text("확인")
+                    Text(String(item.id))
                 }
             }
             
-           
-            
-//            NavigationLink {
-//                NextDayDiaryView(journeyDate: Date())
-//            } label: {
-//                GroupBox {
-//                    ForEach(currentDayJourney) { item in
-//                        Text(String(item.id))
-//                    }
-//                }
-//            }
-            
+            Button {
+                if !nextDayJourney.isEmpty {
+                    print(nextDayJourney[0].blocks)
+                }
+            } label: {
+                Text("확인")
+            }
         }
+        
+        
+        
+        //            NavigationLink {
+        //                NextDayDiaryView(journeyDate: Date())
+        //            } label: {
+        //                GroupBox {
+        //                    ForEach(currentDayJourney) { item in
+        //                        Text(String(item.id))
+        //                    }
+        //                }
+        //            }
+        
         .onAppear {
             if nextDayJourney.isEmpty {
                 modelContext.insert(Journey(id: nextDayJourneyId, blocks: []))
@@ -58,6 +56,8 @@ struct DiaryView: View {
                 modelContext.insert(Journey(id: currentDayJourneyId, blocks: []))
             }
         }
+        
+
     }
     
     init() {
@@ -76,4 +76,4 @@ struct DiaryView: View {
         _currentDayJourney = Query(filter: currentDatePredicate)
     }
 }
-    
+
