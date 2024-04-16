@@ -38,16 +38,23 @@ struct NextDayDiaryView: View {
         VStack {
             List {
                 ForEach(tempBlocks) { item in
-                    Button {
-                        selectedTempBlockId = item.id
-                        isSheetShow.toggle()
-                    } label: {
-                        Text(item.content)
-                            .foregroundStyle(.white)
+                    Section {
+                        Button {
+                            selectedTempBlockId = item.id
+                            isSheetShow.toggle()
+                        } label: {
+                            Text(item.content)
+                                .foregroundStyle(.white)
+                        }
                     }
+                    .listSectionSpacing(12)
+                }
+                .onDelete { idxSet in
+                    tempBlocks.remove(atOffsets: idxSet)
                 }
             }
             .padding(.top, 10)
+            
             
             
             /// 블록이 추가되고, sheet가 올라오고, 즉시 textEditor에 focus가 걸립니다.
