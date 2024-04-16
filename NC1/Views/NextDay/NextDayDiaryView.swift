@@ -39,13 +39,17 @@ struct NextDayDiaryView: View {
             List {
                 ForEach(tempBlocks) { item in
                     Section {
+                        BlockView(isThumbnail: false, photo: nil, prevContent: item.content, editedContent: nil)
+                    }
+                    .swipeActions(edge: .leading) {
                         Button {
                             selectedTempBlockId = item.id
                             isSheetShow.toggle()
                         } label: {
-                            Text(item.content)
-                                .foregroundStyle(.white)
+                            Text("수정")
+                                .fontWeight(.ultraLight)
                         }
+                        .tint(.indigo)
                     }
                     .listSectionSpacing(12)
                 }
@@ -54,6 +58,7 @@ struct NextDayDiaryView: View {
                 }
             }
             .padding(.top, 10)
+            
             
             
             
@@ -105,7 +110,7 @@ struct NextDayDiaryView: View {
         }
         .sheet(isPresented: $isSheetShow) {
             NavigationStack {
-                NextDayBlockSheetView(isSheetShow: $isSheetShow, blocks: $tempBlocks, selectedBlockId: selectedTempBlockId)
+                NextDayEditSheetView(isSheetShow: $isSheetShow, blocks: $tempBlocks, selectedBlockId: selectedTempBlockId)
             }
         }
         .onAppear {
@@ -126,6 +131,10 @@ struct NextDayDiaryView: View {
         self.journeyDate = journeyDate
         self.journeyId = Date.getDateId(date: journeyDate)
         self.formattedDate = Date.getYYYYMMDDString(date: journeyDate)
+        
+        print(self.journeyDate)
+        print(self.journeyId)
+        print(self.formattedDate)
         
         /// 내일 일기에 맞는 날짜로 Journey를 쿼리함
         /// 오류가 아닌 경우 하나만 나옴

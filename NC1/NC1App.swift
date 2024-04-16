@@ -28,6 +28,7 @@ struct NC1App: App {
     var body: some Scene {
         WindowGroup {
             TabSplitView()
+                .preferredColorScheme(.dark)
 //            DiaryView()
 //            ContentView()
 //            ListDropDown()

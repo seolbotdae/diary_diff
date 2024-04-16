@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct NextDayBlockSheetView: View {
+struct NextDayEditSheetView: View {
     @Binding var isSheetShow: Bool
     @Binding var blocks: [TempBlock]
     @FocusState var textEditorFocus: Bool
