@@ -19,7 +19,7 @@ struct NextDayDiaryView: View {
     let journeyDate: Date
     let journeyId: Int
     let formattedDate: String
-
+    
     @State var tempBlocks: [NextDayTempBlock] = []
 
     @State var selectedTempBlockId: UUID = UUID()
@@ -58,6 +58,24 @@ struct NextDayDiaryView: View {
             .padding(.top, 10)
             
             
+            Button {
+                let journeyPredicate = #Predicate<Journey> {
+                    $0.id == journeyId
+                }
+                
+                let descripter = FetchDescriptor<Journey>(predicate: journeyPredicate)
+                
+                let journeys = try? modelContext.fetch(descripter)
+                
+                if let journey = journeys {
+                    if !journey.isEmpty {
+                        print(journey[0].blocks)
+                    }
+                }
+                
+            } label: {
+                Text("확인")
+            }
             
             
             /// 블록이 추가되고, sheet가 올라오고, 즉시 textEditor에 focus가 걸립니다.
@@ -89,6 +107,8 @@ struct NextDayDiaryView: View {
             ToolbarItem {
                 /// 버튼을 누르면, 지금까지 만들어낸 리스트에 번호를 붙여서 SwiftData에 저장합니다.
                 Button {
+                 
+                    
                     let target = Journey(id: journeyId, blocks: [])
                     modelContext.insert(target)
                     
@@ -122,6 +142,7 @@ struct NextDayDiaryView: View {
                     tempBlocks.append(newItem)
                 }
             }
+            
         }
     }
     
@@ -129,6 +150,8 @@ struct NextDayDiaryView: View {
         self.journeyDate = journeyDate
         self.journeyId = Date.getDateId(date: journeyDate)
         self.formattedDate = Date.getYYYYMMDDString(date: journeyDate)
+        
+        
         
         /// 내일 일기에 맞는 날짜로 Journey를 쿼리함
         /// 오류가 아닌 경우 하나만 나옴

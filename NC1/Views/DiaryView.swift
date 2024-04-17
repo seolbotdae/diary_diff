@@ -116,7 +116,6 @@ struct DiaryView: View {
         let nextDatePredicate = #Predicate<Journey> { J in
             J.id == nextDateId
         }
-        // Query 조건만 지정해서 보내는 것 같음, 여기에서 직접 쿼리하는 것이 아니라
         _tomorrowJourney = Query(filter: nextDatePredicate)
         
         let currentDatePredicate = #Predicate<Journey> { J in
