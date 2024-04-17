@@ -17,6 +17,7 @@ struct DayDiaryView: View {
     // 임시로 사용할 Blocks
     @State var dummyBlocks: [DummyBlock] = []
 
+    // 확실히 필요한지 검토하라
     @State var selectedBlockId: UUID = UUID()
     
     @State var orderCount: Int = 0
@@ -100,7 +101,7 @@ struct DayDiaryView: View {
         }
         .sheet(isPresented: $isSheetShow) {
             NavigationStack {
-//                NextDayEditSheetView(isSheetShow: $isSheetShow, blocks: $dummyBlocks, selectedBlockId: selectedBlockId)
+                EditDiarySheetView(type: .tomorrow, order: orderCount, isSheetShow: $isSheetShow, blocks: $dummyBlocks, selectedBlockId: selectedBlockId)
             }
         }
         .onAppear {

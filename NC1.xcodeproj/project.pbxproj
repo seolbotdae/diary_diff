@@ -19,6 +19,7 @@
 		4C78EA1F2BCEDB90001A140F /* CurrentDayEditSheetView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C78EA1E2BCEDB90001A140F /* CurrentDayEditSheetView.swift */; };
 		4C9D26CF2BD03046003B1CD1 /* DayDiaryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C9D26CE2BD03046003B1CD1 /* DayDiaryView.swift */; };
 		4C9D26D12BD0323F003B1CD1 /* DummyBlock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C9D26D02BD0323F003B1CD1 /* DummyBlock.swift */; };
+		4C9D26D32BD035C7003B1CD1 /* EditDiarySheetView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C9D26D22BD035C7003B1CD1 /* EditDiarySheetView.swift */; };
 		4CC4A0882BCCF99500A31EB0 /* NextDayDiaryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CC4A0872BCCF99500A31EB0 /* NextDayDiaryView.swift */; };
 		4CC4A08A2BCD025300A31EB0 /* NextDayEditSheetView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CC4A0892BCD025300A31EB0 /* NextDayEditSheetView.swift */; };
 		4CC4A08D2BCD5C2B00A31EB0 /* TabSplitView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CC4A08C2BCD5C2B00A31EB0 /* TabSplitView.swift */; };
@@ -39,6 +40,7 @@
 		4C78EA1E2BCEDB90001A140F /* CurrentDayEditSheetView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CurrentDayEditSheetView.swift; sourceTree = "<group>"; };
 		4C9D26CE2BD03046003B1CD1 /* DayDiaryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DayDiaryView.swift; sourceTree = "<group>"; };
 		4C9D26D02BD0323F003B1CD1 /* DummyBlock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DummyBlock.swift; sourceTree = "<group>"; };
+		4C9D26D22BD035C7003B1CD1 /* EditDiarySheetView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditDiarySheetView.swift; sourceTree = "<group>"; };
 		4CC4A0872BCCF99500A31EB0 /* NextDayDiaryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NextDayDiaryView.swift; sourceTree = "<group>"; };
 		4CC4A0892BCD025300A31EB0 /* NextDayEditSheetView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NextDayEditSheetView.swift; sourceTree = "<group>"; };
 		4CC4A08C2BCD5C2B00A31EB0 /* TabSplitView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabSplitView.swift; sourceTree = "<group>"; };
@@ -122,6 +124,7 @@
 				4C9D26CE2BD03046003B1CD1 /* DayDiaryView.swift */,
 				4CC4A08C2BCD5C2B00A31EB0 /* TabSplitView.swift */,
 				4C31BD532BCE5C11006FCA9E /* BlockView.swift */,
+				4C9D26D22BD035C7003B1CD1 /* EditDiarySheetView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -221,6 +224,7 @@
 				4C6E48812BCBC97F006BDBFE /* Date+DateFormatter.swift in Sources */,
 				4C53D3822BCEDAB100C67998 /* CurrentDayDiaryView.swift in Sources */,
 				4CC4A0882BCCF99500A31EB0 /* NextDayDiaryView.swift in Sources */,
+				4C9D26D32BD035C7003B1CD1 /* EditDiarySheetView.swift in Sources */,
 				4C6E487C2BCBC359006BDBFE /* Block.swift in Sources */,
 				4CC4A08D2BCD5C2B00A31EB0 /* TabSplitView.swift in Sources */,
 				4C78EA1F2BCEDB90001A140F /* CurrentDayEditSheetView.swift in Sources */,

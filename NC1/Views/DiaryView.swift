@@ -25,7 +25,8 @@ struct DiaryView: View {
     var body: some View {
         VStack {
             NavigationLink {
-                NextDayDiaryView(journeyDate: tomorrow)
+                DayDiaryView(journeyDate: tomorrow)
+//                NextDayDiaryView(journeyDate: tomorrow)
             } label: {
                 GroupBox {
                     VStack {
