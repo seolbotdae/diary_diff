@@ -62,6 +62,9 @@ struct EditDiarySheetView: View {
                 // 만약, 블럭 내부에 이전 내용이 적혀 있다면 변경해야함.
                 if let target = blocks.first(where: { $0.id == selectedBlockId}) {
                     textFieldInput = target.content
+                    print("채움")
+                } else {
+                    print("없음")
                 }
             }
             

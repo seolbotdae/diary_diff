@@ -17,7 +17,8 @@ struct DayDiaryView: View {
     // 임시로 사용할 Blocks
     @State var dummyBlocks: [DummyBlock] = []
 
-    // 확실히 필요한지 검토하라
+    let dummyBlockId: UUID = UUID()
+    
     @State var selectedBlockId: UUID = UUID()
     
     @State var orderCount: Int = 1
@@ -55,6 +56,8 @@ struct DayDiaryView: View {
             
             /// 블록이 추가되고, sheet가 올라오고, 즉시 textEditor에 focus가 걸립니다.
             Button {
+                // 블록 추가라는 것을 확실하게 하기 위함
+                selectedBlockId = dummyBlockId
                 isSheetShow.toggle()
             } label: {
                 HStack(alignment: .center, spacing: 10) {
@@ -76,19 +79,8 @@ struct DayDiaryView: View {
         .navigationBarTitleDisplayMode(.large)
         .toolbar {
             ToolbarItem {
-                /// 버튼을 누르면, 지금까지 만들어낸 리스트에 번호를 붙여서 SwiftData에 저장합니다.
                 Button {
-                    let target = Journey(id: journeyId, blocks: [])
-                    modelContext.insert(target)
-                    
-                    var orderCount = 1
-                    
-                    for i in dummyBlocks {
-                        _ = Block(id: i.id, journey: target, photo: "", content: i.content, order: orderCount, isThumbnail: false)
-                        orderCount += 1
-                    }
-                    
-                    print("저장 완료")
+                   save()
                 } label: {
                     Text("저장")
                 }
@@ -101,17 +93,7 @@ struct DayDiaryView: View {
             }
         }
         .onAppear {
-            /// 만약 SwiftData의 해당 journey에 block이 있다면, order순서대로 정렬시켜서 리스트롤 보여줍니다.
-            /// 사전에 정리를 해두는 것.
-            if journey.count >= 1 {
-                for block in journey[0].blocks.sorted(by: { lhs, rhs in
-                    lhs.order < rhs.order
-                }) {
-//                    let newItem = NextDayTempBlock(id: block.id, content: block.content)
-//                    dummyBlocks.append(newItem)
-                }
-            }
-            
+            load()
         }
     }
     
@@ -127,5 +109,48 @@ struct DayDiaryView: View {
             J.id == journeyId
         }
         _journey = Query(filter: journeyPredicate)
+    }
+    
+    // 버튼을 누르면, 지금까지 만들어낸 리스트에 번호를 붙여서 SwiftData에 저장합니다.
+    func save() {
+        if !journey.isEmpty {
+            var orderCount = 1
+            
+            var array: [Block] = []
+            
+            for i in dummyBlocks {
+                let block = Block(id: i.id, journey: journey[0], photo: "", content: i.content, order: orderCount, isThumbnail: false)
+                
+                array.append(block)
+                
+                orderCount += 1
+            }
+            
+            journey[0].blocks = array
+            
+            modelContext.insert(journey[0])
+        }
+        
+        print("저장 완료")
+    }
+    
+    func load() {
+        // 만약 SwiftData의 해당 journey에 block이 있다면, order순서대로 정렬시켜서 리스트롤 보여줍니다.
+        // 사전에 정리를 해두는 것.
+        if !journey.isEmpty {
+            let target = journey[0]
+            
+            // 블럭이 있다!
+            if !target.blocks.isEmpty {
+                for block in target.blocks.sorted(by: { lhs, rhs in
+                    lhs.order < rhs.order
+                }) {
+                    let newItem = DummyBlock(id: block.id, photo: block.photo, content: block.content, editedContent: block.editedContent, order: block.order, isThumbnail: block.isThumbnail)
+                    
+                    dummyBlocks.append(newItem)
+                }
+            }
+        }
+        
     }
 }
