@@ -26,12 +26,12 @@ struct EditDiarySheetView: View {
     
     @State var textFieldInput: String = ""
     
+    @Environment(\.dismiss) private var dismiss
+    
     var body: some View {
         NavigationStack {
-            Text(String(selectedBlockId))
             switch type {
             case .tomorrow:
-                Text(String(selectedBlockId))
                 VStack {
                     TextEditor(text: $textFieldInput)
                         .onAppear {
@@ -42,17 +42,10 @@ struct EditDiarySheetView: View {
                 .navigationTitle("내용 입력")
                 .navigationBarTitleDisplayMode(.inline)
                 .toolbar {
-                    ToolbarItem(placement: .topBarLeading) {
-                        Button {
-                            isSheetShow.toggle()
-                        } label: {
-                            Text("취소")
-                        }
-                    }
-                    
                     ToolbarItem(placement: .topBarTrailing) {
                         Button {
                             saveTomorrowBlock()
+                            dismiss()
                         } label: {
                             Text("저장")
                         }
@@ -76,7 +69,6 @@ struct EditDiarySheetView: View {
             // 만약, 블럭 내부에 이전 내용이 적혀 있다면 변경해야함.
             if let target = blocks.first(where: { $0.id == selectedBlockId}) {
                 textFieldInput = target.content
-            } else {
             }
         }
     }

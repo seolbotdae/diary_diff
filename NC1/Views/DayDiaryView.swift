@@ -36,18 +36,11 @@ struct DayDiaryView: View {
             List {
                 ForEach(dummyBlocks, id: \.uuid) { item in
                     Section {
-                        BlockView(isThumbnail: false, photo: nil, prevContent: item.content, editedContent: nil)
-                    }
-                    .swipeActions(edge: .leading) {
-                        Button {
-                            selectedBlockId = item.id
-                            print(selectedBlockId)
-                            isSheetShow.toggle()
+                        NavigationLink {
+                            EditDiarySheetView(type: .tomorrow, isSheetShow: $isSheetShow, blocks: $dummyBlocks, selectedBlockId: item.id)
                         } label: {
-                            Text("수정")
-                                .fontWeight(.ultraLight)
+                            BlockView(isThumbnail: false, photo: nil, prevContent: item.content, editedContent: nil)
                         }
-                        .tint(.indigo)
                     }
                     .listSectionSpacing(12)
                 }
@@ -58,10 +51,8 @@ struct DayDiaryView: View {
             .padding(.top, 10)
             
             /// 블록이 추가되고, sheet가 올라오고, 즉시 textEditor에 focus가 걸립니다.
-            Button {
-                // 블록 추가라는 것을 확실하게 하기 위함
-                selectedBlockId = dummyBlockId
-                isSheetShow.toggle()
+            NavigationLink {
+                EditDiarySheetView(type: .tomorrow, isSheetShow: $isSheetShow, blocks: $dummyBlocks, selectedBlockId: -1)
             } label: {
                 HStack(alignment: .center, spacing: 10) {
                     Spacer()
@@ -89,9 +80,6 @@ struct DayDiaryView: View {
                 }
                 .disabled({dummyBlocks.count == 0}())
             }
-        }
-        .sheet(isPresented: $isSheetShow) {
-            EditDiarySheetView(type: .tomorrow, isSheetShow: $isSheetShow, blocks: $dummyBlocks, selectedBlockId: selectedBlockId)
         }
         .onAppear {
             load()
