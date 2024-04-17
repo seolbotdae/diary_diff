@@ -48,7 +48,3 @@ struct BlockView: View {
         }
     }
 }
-
-#Preview {
-    BlockView(isThumbnail: true, photo: "")
-}

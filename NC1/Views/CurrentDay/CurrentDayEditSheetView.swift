@@ -6,7 +6,6 @@
 //
 
 import SwiftUI
-import SwiftData
 
 struct CurrentDayEditSheetView: View {
     @Binding var isSheetShow: Bool
@@ -20,7 +19,6 @@ struct CurrentDayEditSheetView: View {
     let journeyId: Int
     
     @State var inputText: String = ""
-    
     @State var isThumbnail: Bool = false
     
     var block: CurrentDayTempBlock = CurrentDayTempBlock(id: UUID())

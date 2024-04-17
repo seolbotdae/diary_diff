@@ -6,14 +6,10 @@
 //
 
 import Foundation
-import SwiftData
 
-@Model
-final class Journey {
-    @Attribute(.unique)
+@Observable
+class Journey {
     var id: Int
-    
-    @Relationship
     var blocks: [Block] = []
     
     var thumbnail: Block?

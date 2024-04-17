@@ -6,7 +6,6 @@
 //
 
 import SwiftUI
-import SwiftData
 
 // 앱 내부에서 사용할 블럭
 struct CurrentDayTempBlock: Identifiable {
@@ -37,16 +36,7 @@ struct CurrentDayDiaryView: View {
     
     @State var isSheetShow: Bool = false
     
-    @Environment(\.modelContext) var modelContext
-    
-    @Query var journey: [Journey]
-    
     var body: some View {
-        Button {
-            print(journey)
-        } label: {
-            Text("check")
-        }
         VStack {
             List {
                 ForEach(tempBlocks) { item in
@@ -109,10 +99,10 @@ struct CurrentDayDiaryView: View {
                     var orderCount = 0
                     
                     for i in tempBlocks {
-                        _ = Block(id: i.id, content: i.content, order: orderCount, isThumbnail: false)
+                        target.blocks.append(Block(id: i.id, content: i.content, order: orderCount, isThumbnail: false))
                         orderCount += 1
                     }
-                    
+                    modelContext.insert(target)
                     print("저장 완료")
                 } label: {
                     Text("저장")
@@ -122,40 +112,10 @@ struct CurrentDayDiaryView: View {
         }
         .sheet(isPresented: $isSheetShow) {
             NavigationStack {
-                if !journey.isEmpty {
-                    CurrentDayEditSheetView(isSheetShow: $isSheetShow, tempBlocks: $tempBlocks, selectedBlockId: selectedTempBlockId, journey: journey[0], journeyId: journeyId)
-                }
             }
         }
         .onAppear {
-            /// 만약 SwiftData의 해당 journey에 block이 있다면, order순서대로 정렬시켜서 리스트롤 보여줍니다.
-            /// 사전에 정리를 해두는 것.
-            if journey.count >= 1 {
-                for block in journey[0].blocks.sorted(by: { lhs, rhs in
-                    lhs.order < rhs.order
-                }) {
-                    var newItem = CurrentDayTempBlock(id: block.id, isThumbnail: block.isThumbnail, content: block.content, photo: block.photo, editedContent: block.editedContent)
-                
-                    tempBlocks.append(newItem)
-                }
-            }
         }
-    }
-    
-    init(journeyDate: Date) {
-        self.journeyDate = journeyDate
-        self.journeyId = Date.getDateId(date: journeyDate)
-        self.formattedDate = Date.getYYYYMMDDString(date: journeyDate)
-        
-        print(journeyDate)
-        
-//        /// 내일 일기에 맞는 날짜로 Journey를 쿼리함
-//        /// 오류가 아닌 경우 하나만 나옴
-//        let currentDateId = Date.getDateId(date: Date())
-//        let currentDatePredicate = #Predicate<Journey> { J in
-//            J.id == currentDateId
-//        }
-//        _journey = Query(filter: currentDatePredicate)
     }
 }
 

@@ -6,11 +6,8 @@
 //
 
 import SwiftUI
-import SwiftData
 
 struct DiaryView: View {
-    @Environment(\.modelContext) private var modelContext
-    
     let tomorrow = Date() + 86400
     let today = Date()
     
@@ -18,9 +15,6 @@ struct DiaryView: View {
     
     @State var tomorrowDateString: String = ""
     @State var todayDateString: String = ""
-    
-    @Query private var tomorrowJourney: [Journey]
-    @Query private var todayJourney: [Journey]
     
     var body: some View {
         VStack {
@@ -42,15 +36,7 @@ struct DiaryView: View {
                         .padding(.bottom, 1)
 
                         HStack(alignment: .center) {
-                            if tomorrowJourney.count >= 1 {
-                                if tomorrowJourney[0].blocks.count > 0 {
-                                    Text("작성된 일기가 있습니다. 내일 확인해 보세요!")
-                                } else {
-                                    Text("아직 일기를 작성하지 않았습니다.")
-                                }
-                            } else {
-                                Text("아직 일기를 작성하지 않았습니다.")
-                            }
+                            Text("잠은 다잤네")
                         }
                     }
                 }
@@ -76,15 +62,7 @@ struct DiaryView: View {
                         .padding(.bottom, 1)
 
                         HStack(alignment: .center) {
-                            if todayJourney.count >= 1 {
-                                if todayJourney[0].blocks.count > 0 {
-                                    Text("작성된 일기가 있습니다!")
-                                } else {
-                                    Text("아직 일기를 작성하지 않았습니다.")
-                                }
-                            } else {
-                                Text("아직 일기를 작성하지 않았습니다.")
-                            }
+                            Text("잠은 다잤네")
                         }
                     }
                 }
@@ -101,9 +79,6 @@ struct DiaryView: View {
             
             let tomorrowJourney = Journey(id: Date.getDateId(date: tomorrow), blocks: [])
             let todayJourney = Journey(id: Date.getDateId(date: today), blocks: [])
-            
-            modelContext.insert(tomorrowJourney)
-            modelContext.insert(todayJourney)
         }
         .padding(.top, 20)
         .padding(.horizontal, 16)
@@ -112,17 +87,6 @@ struct DiaryView: View {
     init() {
         let nextDateId = Date.getDateId(date: Date() + 86400)
         let currentDateId = Date.getDateId(date: Date())
-        
-        let nextDatePredicate = #Predicate<Journey> { J in
-            J.id == nextDateId
-        }
-        // Query 조건만 지정해서 보내는 것 같음, 여기에서 직접 쿼리하는 것이 아니라
-        _tomorrowJourney = Query(filter: nextDatePredicate)
-        
-        let currentDatePredicate = #Predicate<Journey> { J in
-            J.id == currentDateId
-        }
-        _todayJourney = Query(filter: currentDatePredicate)
     }
 }
 

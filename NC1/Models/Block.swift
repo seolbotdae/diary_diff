@@ -6,16 +6,12 @@
 //
 
 import Foundation
-import SwiftData
 
-@Model
-final class Block {
-    @Attribute(.unique)
+@Observable
+class Block {
     var id: UUID
-    // 소속 journey
-    @Relationship(inverse: \Journey.blocks)
+    
     var journey: Journey?
-    // 임시로 String 해둔것
     var photo: String?
 
     var content: String
