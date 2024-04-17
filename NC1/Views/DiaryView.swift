@@ -10,19 +10,22 @@ import SwiftData
 
 struct DiaryView: View {
     @Environment(\.modelContext) private var modelContext
-    @State private var nextDayJourneyId = Date.getDateId(date: Date() + 86400)
-    @State private var currentDayJourneyId = Date.getDateId(date: Date())
     
-    let nextMonthDay: String
-    let currentMonthDay: String
+    let tomorrow = Date() + 86400
+    let today = Date()
     
-    @Query private var nextDayJourney: [Journey]
-    @Query private var currentDayJourney: [Journey]
+    @State var dateFormatter: DateFormatter = DateFormatter()
+    
+    @State var tomorrowDateString: String = ""
+    @State var todayDateString: String = ""
+    
+    @Query private var tomorrowJourney: [Journey]
+    @Query private var todayJourney: [Journey]
     
     var body: some View {
         VStack {
             NavigationLink {
-                NextDayDiaryView(journeyDate: (Date() + 86400))
+                NextDayDiaryView(journeyDate: tomorrow)
             } label: {
                 GroupBox {
                     VStack {
@@ -32,15 +35,15 @@ struct DiaryView: View {
                             
                             Spacer()
                             
-                            Text(nextMonthDay)
+                            Text(tomorrowDateString)
                                 .font(.title2)
                                 .foregroundStyle(.gray)
                         }
                         .padding(.bottom, 1)
 
                         HStack(alignment: .center) {
-                            if nextDayJourney.count >= 1 {
-                                if nextDayJourney[0].blocks.count > 0 {
+                            if tomorrowJourney.count >= 1 {
+                                if tomorrowJourney[0].blocks.count > 0 {
                                     Text("작성된 일기가 있습니다. 내일 확인해 보세요!")
                                 } else {
                                     Text("아직 일기를 작성하지 않았습니다.")
@@ -56,7 +59,7 @@ struct DiaryView: View {
             .padding(.bottom, 12)
             
             NavigationLink {
-                NextDayDiaryView(journeyDate: Date())
+                CurrentDayDiaryView(journeyDate: today)
             } label: {
                 GroupBox {
                     VStack {
@@ -66,15 +69,15 @@ struct DiaryView: View {
                             
                             Spacer()
                             
-                            Text(currentMonthDay)
+                            Text(todayDateString)
                                 .font(.title2)
                                 .foregroundStyle(.gray)
                         }
                         .padding(.bottom, 1)
 
                         HStack(alignment: .center) {
-                            if currentDayJourney.count >= 1 {
-                                if currentDayJourney[0].blocks.count > 0 {
+                            if todayJourney.count >= 1 {
+                                if todayJourney[0].blocks.count > 0 {
                                     Text("작성된 일기가 있습니다!")
                                 } else {
                                     Text("아직 일기를 작성하지 않았습니다.")
@@ -90,29 +93,36 @@ struct DiaryView: View {
             
             Spacer()
         }
+        .onAppear {
+            dateFormatter.dateFormat = "M월 d일"
+            
+            tomorrowDateString = dateFormatter.string(from: tomorrow)
+            todayDateString = dateFormatter.string(from: today)
+            
+            let tomorrowJourney = Journey(id: Date.getDateId(date: tomorrow), blocks: [])
+            let todayJourney = Journey(id: Date.getDateId(date: today), blocks: [])
+            
+            modelContext.insert(tomorrowJourney)
+            modelContext.insert(todayJourney)
+        }
         .padding(.top, 20)
         .padding(.horizontal, 16)
     }
     
     init() {
-        let fomatter = DateFormatter()
-        fomatter.dateFormat = "M월 d일"
-        self.currentMonthDay = fomatter.string(from: Date())
-        self.nextMonthDay = fomatter.string(from: Date() + 86400)
-        
         let nextDateId = Date.getDateId(date: Date() + 86400)
         let currentDateId = Date.getDateId(date: Date())
         
         let nextDatePredicate = #Predicate<Journey> { J in
             J.id == nextDateId
         }
-        _nextDayJourney = Query(filter: nextDatePredicate)
+        // Query 조건만 지정해서 보내는 것 같음, 여기에서 직접 쿼리하는 것이 아니라
+        _tomorrowJourney = Query(filter: nextDatePredicate)
         
         let currentDatePredicate = #Predicate<Journey> { J in
             J.id == currentDateId
         }
-        
-        _currentDayJourney = Query(filter: currentDatePredicate)
+        _todayJourney = Query(filter: currentDatePredicate)
     }
 }
 

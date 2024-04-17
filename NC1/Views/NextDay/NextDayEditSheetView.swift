@@ -9,13 +9,13 @@ import SwiftUI
 
 struct NextDayEditSheetView: View {
     @Binding var isSheetShow: Bool
-    @Binding var blocks: [TempBlock]
+    @Binding var blocks: [NextDayTempBlock]
     @FocusState var textEditorFocus: Bool
     var selectedBlockId: UUID
     
     @State var inputText: String = ""
     
-    var block: TempBlock = TempBlock(id: UUID())
+    var block: NextDayTempBlock = NextDayTempBlock(id: UUID())
     
     var body: some View {
         VStack {

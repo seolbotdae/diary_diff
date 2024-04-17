@@ -1,26 +1,35 @@
 //
-//  NextDayDiaryView.swift
+//  CurrentDayDiaryView.swift
 //  NC1
 //
-//  Created by Seol WooHyeok on 4/15/24.
+//  Created by Seol WooHyeok on 4/17/24.
 //
 
 import SwiftUI
 import SwiftData
 
 // 앱 내부에서 사용할 블럭
-struct NextDayTempBlock: Identifiable {
+struct CurrentDayTempBlock: Identifiable {
     var id: UUID = UUID()
+    var isThumbnail: Bool = false
+    
+    // 반드시 원본은 있어야 함.
     var content: String = ""
+    
+    var photo: String? 
+    
+    var editedContent: String?
 }
 
-struct NextDayDiaryView: View {
-    // 외부에서 받아온 journey
+struct CurrentDayDiaryView: View {
+    // 외부에서 받아온 journeyDate
     let journeyDate: Date
+    
+    // 내부에서 설정됨
     let journeyId: Int
     let formattedDate: String
 
-    @State var tempBlocks: [NextDayTempBlock] = []
+    @State var tempBlocks: [CurrentDayTempBlock] = []
 
     @State var selectedTempBlockId: UUID = UUID()
     
@@ -33,6 +42,11 @@ struct NextDayDiaryView: View {
     @Query var journey: [Journey]
     
     var body: some View {
+        Button {
+            print(journey)
+        } label: {
+            Text("check")
+        }
         VStack {
             List {
                 ForEach(tempBlocks) { item in
@@ -63,7 +77,7 @@ struct NextDayDiaryView: View {
             /// 블록이 추가되고, sheet가 올라오고, 즉시 textEditor에 focus가 걸립니다.
             Button {
                 let tempId = UUID()
-                tempBlocks.append(NextDayTempBlock(id: tempId))
+                tempBlocks.append(CurrentDayTempBlock(id: tempId))
                 orderCount += 1
                 selectedTempBlockId = tempId
                 isSheetShow.toggle()
@@ -95,7 +109,7 @@ struct NextDayDiaryView: View {
                     var orderCount = 0
                     
                     for i in tempBlocks {
-                        _ = Block(id: i.id, journey: target, photo: "", content: i.content, order: orderCount, isThumbnail: false)
+                        _ = Block(id: i.id, content: i.content, order: orderCount, isThumbnail: false)
                         orderCount += 1
                     }
                     
@@ -108,7 +122,9 @@ struct NextDayDiaryView: View {
         }
         .sheet(isPresented: $isSheetShow) {
             NavigationStack {
-                NextDayEditSheetView(isSheetShow: $isSheetShow, blocks: $tempBlocks, selectedBlockId: selectedTempBlockId)
+                if !journey.isEmpty {
+                    CurrentDayEditSheetView(isSheetShow: $isSheetShow, tempBlocks: $tempBlocks, selectedBlockId: selectedTempBlockId, journey: journey[0], journeyId: journeyId)
+                }
             }
         }
         .onAppear {
@@ -118,7 +134,8 @@ struct NextDayDiaryView: View {
                 for block in journey[0].blocks.sorted(by: { lhs, rhs in
                     lhs.order < rhs.order
                 }) {
-                    let newItem = NextDayTempBlock(id: block.id, content: block.content)
+                    var newItem = CurrentDayTempBlock(id: block.id, isThumbnail: block.isThumbnail, content: block.content, photo: block.photo, editedContent: block.editedContent)
+                
                     tempBlocks.append(newItem)
                 }
             }
@@ -130,13 +147,15 @@ struct NextDayDiaryView: View {
         self.journeyId = Date.getDateId(date: journeyDate)
         self.formattedDate = Date.getYYYYMMDDString(date: journeyDate)
         
-        /// 내일 일기에 맞는 날짜로 Journey를 쿼리함
-        /// 오류가 아닌 경우 하나만 나옴
-        let nextDateId = Date.getDateId(date: Date() + 86400)
-        let nextDatePredicate = #Predicate<Journey> { J in
-            J.id == nextDateId
-        }
-        _journey = Query(filter: nextDatePredicate)
+        print(journeyDate)
+        
+//        /// 내일 일기에 맞는 날짜로 Journey를 쿼리함
+//        /// 오류가 아닌 경우 하나만 나옴
+//        let currentDateId = Date.getDateId(date: Date())
+//        let currentDatePredicate = #Predicate<Journey> { J in
+//            J.id == currentDateId
+//        }
+//        _journey = Query(filter: currentDatePredicate)
     }
 }
 
