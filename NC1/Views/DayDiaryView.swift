@@ -20,7 +20,7 @@ struct DayDiaryView: View {
     // 확실히 필요한지 검토하라
     @State var selectedBlockId: UUID = UUID()
     
-    @State var orderCount: Int = 0
+    @State var orderCount: Int = 1
     
     @State var isSheetShow: Bool = false
     
@@ -55,10 +55,6 @@ struct DayDiaryView: View {
             
             /// 블록이 추가되고, sheet가 올라오고, 즉시 textEditor에 focus가 걸립니다.
             Button {
-//                let tempId = UUID()
-//                dummyBlocks.append(NextDayTempBlock(id: tempId))
-//                orderCount += 1
-//                selectedBlockId = tempId
                 isSheetShow.toggle()
             } label: {
                 HStack(alignment: .center, spacing: 10) {
@@ -85,7 +81,7 @@ struct DayDiaryView: View {
                     let target = Journey(id: journeyId, blocks: [])
                     modelContext.insert(target)
                     
-                    var orderCount = 0
+                    var orderCount = 1
                     
                     for i in dummyBlocks {
                         _ = Block(id: i.id, journey: target, photo: "", content: i.content, order: orderCount, isThumbnail: false)
@@ -101,7 +97,7 @@ struct DayDiaryView: View {
         }
         .sheet(isPresented: $isSheetShow) {
             NavigationStack {
-                EditDiarySheetView(type: .tomorrow, order: orderCount, isSheetShow: $isSheetShow, blocks: $dummyBlocks, selectedBlockId: selectedBlockId)
+                EditDiarySheetView(type: .tomorrow, isSheetShow: $isSheetShow, blocks: $dummyBlocks, selectedBlockId: selectedBlockId)
             }
         }
         .onAppear {

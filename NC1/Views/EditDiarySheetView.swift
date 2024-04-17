@@ -15,9 +15,6 @@ struct EditDiarySheetView: View {
     
     var type: SheetType
     
-    // 추가면 +1 해서 줘야겠고 아니면 클릭된 친구의 order를.. 내가 해줘야함
-    var order: Int
-    
     @Binding var isSheetShow: Bool
     @Binding var blocks: [DummyBlock]
     
@@ -139,7 +136,7 @@ struct EditDiarySheetView: View {
             if textFieldInput.trimmingCharacters(in: .whitespacesAndNewlines) == "" {
                 blocks.remove(at: targetIdx)
             } else {
-                blocks[targetIdx] = DummyBlock(id: selectedBlockId, content: textFieldInput, order: order, isThumbnail: false)
+                blocks[targetIdx] = DummyBlock(id: selectedBlockId, content: textFieldInput, order: blocks[targetIdx].order, isThumbnail: false)
             }
         } else {
             // 새로 추가합니다.
@@ -147,7 +144,7 @@ struct EditDiarySheetView: View {
             if textFieldInput.trimmingCharacters(in: .whitespacesAndNewlines) == "" {
                 
             } else {
-                blocks.append(DummyBlock(id: UUID(), content: textFieldInput, order: order + 1, isThumbnail: false))
+                blocks.append(DummyBlock(id: UUID(), content: textFieldInput, order: blocks.count + 1, isThumbnail: false))
             }
         }
         
