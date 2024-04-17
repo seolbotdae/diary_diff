@@ -8,8 +8,9 @@
 import Foundation
 
 
-final class DummyBlock {
-    var id: UUID
+final class DummyBlock: Identifiable {
+    var uuid: UUID = UUID()
+    var id: Int
     
     // 임시로 String 해둔것
     var photo: String?
@@ -17,16 +18,13 @@ final class DummyBlock {
     var content: String
     var editedContent: String?
     
-    var order: Int = 0
-    
     var isThumbnail: Bool = false
     
-    init(id: UUID, photo: String? = nil, content: String, editedContent: String? = nil, order: Int, isThumbnail: Bool) {
+    init(id: Int, photo: String? = nil, content: String, editedContent: String? = nil, isThumbnail: Bool) {
         self.id = id
         self.photo = photo
         self.content = content
         self.editedContent = editedContent
-        self.order = order
         self.isThumbnail = isThumbnail
     }
 }

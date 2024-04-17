@@ -60,7 +60,7 @@ struct DiaryView: View {
             .padding(.bottom, 12)
             
             NavigationLink {
-                CurrentDayDiaryView(journeyDate: today)
+                DayDiaryView(journeyDate: today)
             } label: {
                 GroupBox {
                     VStack {

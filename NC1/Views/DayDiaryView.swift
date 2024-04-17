@@ -17,11 +17,13 @@ struct DayDiaryView: View {
     // 임시로 사용할 Blocks
     @State var dummyBlocks: [DummyBlock] = []
 
-    let dummyBlockId: UUID = UUID()
+    let dummyBlockId: Int = -1
     
-    @State var selectedBlockId: UUID = UUID()
+    @State var selectedBlockId: Int = 0
     
-    @State var orderCount: Int = 1
+    @State var test: Block?
+    
+    @State var orderCount: Int = 0
     
     @State var isSheetShow: Bool = false
     
@@ -32,13 +34,14 @@ struct DayDiaryView: View {
     var body: some View {
         VStack {
             List {
-                ForEach(dummyBlocks, id: \.id) { item in
+                ForEach(dummyBlocks, id: \.uuid) { item in
                     Section {
                         BlockView(isThumbnail: false, photo: nil, prevContent: item.content, editedContent: nil)
                     }
                     .swipeActions(edge: .leading) {
                         Button {
                             selectedBlockId = item.id
+                            print(selectedBlockId)
                             isSheetShow.toggle()
                         } label: {
                             Text("수정")
@@ -88,9 +91,7 @@ struct DayDiaryView: View {
             }
         }
         .sheet(isPresented: $isSheetShow) {
-            NavigationStack {
-                EditDiarySheetView(type: .tomorrow, isSheetShow: $isSheetShow, blocks: $dummyBlocks, selectedBlockId: selectedBlockId)
-            }
+            EditDiarySheetView(type: .tomorrow, isSheetShow: $isSheetShow, blocks: $dummyBlocks, selectedBlockId: selectedBlockId)
         }
         .onAppear {
             load()
@@ -114,12 +115,12 @@ struct DayDiaryView: View {
     // 버튼을 누르면, 지금까지 만들어낸 리스트에 번호를 붙여서 SwiftData에 저장합니다.
     func save() {
         if !journey.isEmpty {
-            var orderCount = 1
+            var orderCount = 0
             
             var array: [Block] = []
             
             for i in dummyBlocks {
-                let block = Block(id: i.id, journey: journey[0], photo: "", content: i.content, order: orderCount, isThumbnail: false)
+                let block = Block(id: orderCount, journey: journey[0], photo: "", content: i.content, isThumbnail: false)
                 
                 array.append(block)
                 
@@ -142,13 +143,17 @@ struct DayDiaryView: View {
             
             // 블럭이 있다!
             if !target.blocks.isEmpty {
+                var temp: [DummyBlock] = []
+                
                 for block in target.blocks.sorted(by: { lhs, rhs in
-                    lhs.order < rhs.order
+                    lhs.id < rhs.id
                 }) {
-                    let newItem = DummyBlock(id: block.id, photo: block.photo, content: block.content, editedContent: block.editedContent, order: block.order, isThumbnail: block.isThumbnail)
+                    let newItem = DummyBlock(id: block.id, photo: block.photo, content: block.content, editedContent: block.editedContent, isThumbnail: block.isThumbnail)
                     
-                    dummyBlocks.append(newItem)
+                    temp.append(newItem)
                 }
+                
+                dummyBlocks = temp
             }
         }
         
