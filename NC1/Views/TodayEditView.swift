@@ -71,7 +71,7 @@ struct TodayEditView: View {
             
             Toggle(isOn: $ThumbnailToggle) {
                 VStack(alignment: .leading) {
-                    Text("이 글을 썸네일로 설정하겠소")
+                    Text("이 글을 썸네일로 설정합니다.")
                         .font(.body)
                     Text("이전 썸네일은 자동으로 해제됩니다.")
                         .font(.caption)
