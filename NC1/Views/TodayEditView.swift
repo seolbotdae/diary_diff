@@ -22,19 +22,42 @@ struct TodayEditView: View {
     @Environment(\.dismiss) private var dismiss
     
     var body: some View {
-        VStack {
+        VStack(alignment: .leading) {
             Text("사진 추가")
                 .font(.title)
-            
+                .padding(.top, 30)
+                        
             TextField("사진 임시", text: $photoTestText)
                 .font(.title)
             
             Text("내용 수정")
-                .font(.title2)
-            
-            Text(prevContent)
+                .font(.title)
+                .padding(.top, 20)
+            VStack(alignment: .leading) {
+                Text("이전 글")
+                    .font(.title2)
+                    .padding(10)
+                HStack {
+                    Text(prevContent)
+                        .padding(.horizontal, 20)
+                        .padding(.bottom, 10)
+                    Spacer()
+                }
+            }
+            .background(.gray.opacity(0.2))
+            .clipShape(RoundedRectangle(cornerRadius: 10))
             
             TextEditor(text: $currentContent)
+                .foregroundStyle(.white)
+                .font(.body)
+                .padding(.top, 10)
+                .padding(.horizontal, 20)
+                .padding(.bottom, 10)
+                .background(Color.gray.opacity(0.2))
+                .scrollContentBackground(.hidden)
+                .lineSpacing(10)
+                .clipShape(RoundedRectangle(cornerRadius: 10))
+                .frame(height: 200)
                 .onAppear {
                     // 만약, 블럭 내부에 이전 내용이 적혀 있다면 변경해야함.
                     if let target = blocks.first(where: { $0.id == selectedBlockId}) {
@@ -42,18 +65,31 @@ struct TodayEditView: View {
                     }
                 }
             
+            Text("썸네일 설정")
+                .font(.title)
+                .padding(.top, 20)
+            
             Toggle(isOn: $ThumbnailToggle) {
                 VStack(alignment: .leading) {
                     Text("이 글을 썸네일로 설정하겠소")
+                        .font(.body)
                     Text("이전 썸네일은 자동으로 해제됩니다.")
+                        .font(.caption)
+                        .foregroundStyle(.gray)
                 }
             }
+            .padding(.horizontal, 10)
+            .padding(.vertical, 10)
+            .background(.gray.opacity(0.2))
+            .clipShape(RoundedRectangle(cornerRadius: 10))
             .onAppear {
                 // 만약, 블럭 내부에 이전 내용이 적혀 있다면 변경해야함.
                 if let target = blocks.first(where: { $0.id == selectedBlockId}) {
                     ThumbnailToggle = target.isThumbnail
                 }
             }
+            
+            Spacer()
         }
         .navigationTitle("내용 입력")
         .navigationBarTitleDisplayMode(.inline)

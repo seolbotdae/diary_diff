@@ -82,7 +82,10 @@ struct DiaryView: View {
                         HStack(alignment: .center) {
                             if todayJourney.count >= 1 {
                                 if todayJourney[0].blocks.count > 0 {
-                                    Text("작성된 일기가 있습니다!")
+                                    VStack {                                    
+                                        Text("작성된 일기가 있습니다")
+                                        Text("어떤 점이 달라졌는지 작성해 주세요!")
+                                    }
                                 } else {
                                     Text("아직 일기를 작성하지 않았습니다.")
                                 }
