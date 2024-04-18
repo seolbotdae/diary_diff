@@ -19,6 +19,9 @@ struct DiaryView: View {
     @State var tomorrowDateString: String = ""
     @State var todayDateString: String = ""
     
+    // onAppear를 단 한번만 실행시키기 위한
+    @State var didFinishSetup: Bool = false
+    
     @Query private var tomorrowJourney: [Journey]
     @Query private var todayJourney: [Journey]
     
@@ -95,20 +98,30 @@ struct DiaryView: View {
             Spacer()
         }
         .onAppear {
-            dateFormatter.dateFormat = "M월 d일"
-            
-            tomorrowDateString = dateFormatter.string(from: tomorrow)
-            todayDateString = dateFormatter.string(from: today)
-            
-            let tomorrowJourney = Journey(id: Date.getDateId(date: tomorrow), blocks: [])
-            let todayJourney = Journey(id: Date.getDateId(date: today), blocks: [])
-            
-            
-            modelContext.insert(tomorrowJourney)
-            modelContext.insert(todayJourney)
-            
-            todayJourney.blocks = [Block(id: 0, journey: todayJourney, content: "test", isThumbnail: false)]
-            
+            if !didFinishSetup {
+                print("모델 초기화!")
+                dateFormatter.dateFormat = "M월 d일"
+                
+                tomorrowDateString = dateFormatter.string(from: tomorrow)
+                todayDateString = dateFormatter.string(from: today)
+                
+                let tomorrowJourney = Journey(id: Date.getDateId(date: tomorrow), blocks: [])
+                let todayJourney = Journey(id: Date.getDateId(date: today), blocks: [])
+                
+                
+                modelContext.insert(tomorrowJourney)
+                modelContext.insert(todayJourney)
+                
+                todayJourney.blocks = [
+                    Block(id: 0, journey: todayJourney, content: "test1", isThumbnail: false),
+                    Block(id: 1, journey: todayJourney, content: "test2", isThumbnail: false),
+                    Block(id: 2, journey: todayJourney, content: "test3", isThumbnail: false),
+                    Block(id: 3, journey: todayJourney, content: "test4", isThumbnail: false),
+                    Block(id: 4, journey: todayJourney, content: "test5", isThumbnail: false)
+                ]
+                // Mark setup as finished
+                didFinishSetup = true
+            }
         }
         .padding(.top, 20)
         .padding(.horizontal, 16)

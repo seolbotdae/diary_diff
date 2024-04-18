@@ -12,7 +12,7 @@ struct BlockView: View {
     
     // 임시로 String? 로 해둠
     var photo: String?
-    var prevContent: String?
+    var content: String?
     var editedContent: String?
     
     var body: some View {
@@ -26,20 +26,20 @@ struct BlockView: View {
                 }
             }
             
-            if let photo = photo {
+            if photo == "" {
                 VStack {
                     Text("photo enable")
                 }
             }
             
             // both exist
-            if let prev = prevContent, let edited = editedContent {
+            if let prev = content, let edited = editedContent {
                 VStack {
                     Text(prev)
                     Image(systemName: "arrow.down")
                     Text(edited)
                 }
-            } else if let prev = prevContent {
+            } else if let prev = content {
                 VStack {
                     Text(prev)
                 }

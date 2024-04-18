@@ -39,13 +39,14 @@ struct DayDiaryView: View {
                 ForEach(dummyBlocks, id: \.uuid) { item in
                     Section {
                         NavigationLink {
+                            // 오늘의 일기 - 수정
                             if Date.getDateId(date: journeyDate) == Date.getDateId(date: Date()) {
-                                EditDiarySheetView(type: .today, isSheetShow: $isSheetShow, blocks: $dummyBlocks, selectedBlockId: item.id)
+                                TodayEditView(selectedBlockId: item.id, blocks: $dummyBlocks)
                             } else {
-                                EditDiarySheetView(type: .tomorrow, isSheetShow: $isSheetShow, blocks: $dummyBlocks, selectedBlockId: item.id)
+                                TomorrowEditView(selectedBlockId: item.id, blocks: $dummyBlocks)
                             }
                         } label: {
-                            BlockView(isThumbnail: false, photo: nil, prevContent: item.content, editedContent: nil)
+                            BlockView(isThumbnail: item.isThumbnail, photo: item.photo, content: item.content, editedContent: item.editedContent)
                         }
                     }
                     .listSectionSpacing(12)
@@ -59,9 +60,9 @@ struct DayDiaryView: View {
             /// 블록이 추가되고, sheet가 올라오고, 즉시 textEditor에 focus가 걸립니다.
             NavigationLink {
                 if Date.getDateId(date: journeyDate) == Date.getDateId(date: Date()) {
-                    EditDiarySheetView(type: .today, isSheetShow: $isSheetShow, blocks: $dummyBlocks, selectedBlockId: -1)
+                    TodayEditView(selectedBlockId: -1, blocks: $dummyBlocks)
                 } else {
-                    EditDiarySheetView(type: .tomorrow, isSheetShow: $isSheetShow, blocks: $dummyBlocks, selectedBlockId: -1)
+                    TomorrowEditView(selectedBlockId: dummyBlocks.count, blocks: $dummyBlocks)
                 }
             } label: {
                 HStack(alignment: .center, spacing: 10) {
@@ -122,7 +123,7 @@ struct DayDiaryView: View {
             var array: [Block] = []
             
             for i in dummyBlocks {
-                let block = Block(id: orderCount, journey: journey[0], photo: "", content: i.content, isThumbnail: false)
+                let block = Block(id: orderCount, journey: journey[0], photo: i.photo, content: i.content, editedContent: i.editedContent, isThumbnail: i.isThumbnail)
                 
                 array.append(block)
                 
@@ -138,10 +139,12 @@ struct DayDiaryView: View {
     }
     
     func load() {
+        print(journeyId)
         // 만약 SwiftData의 해당 journey에 block이 있다면, order순서대로 정렬시켜서 리스트롤 보여줍니다.
         // 사전에 정리를 해두는 것.
         if !journey.isEmpty {
             let target = journey[0]
+            
             
             // 블럭이 있다!
             if !target.blocks.isEmpty {
@@ -150,6 +153,9 @@ struct DayDiaryView: View {
                 for block in target.blocks.sorted(by: { lhs, rhs in
                     lhs.id < rhs.id
                 }) {
+                    print(block.id)
+                    print(block.content)
+                    print(block.editedContent)
                     let newItem = DummyBlock(id: block.id, photo: block.photo, content: block.content, editedContent: block.editedContent, isThumbnail: block.isThumbnail)
                     
                     temp.append(newItem)

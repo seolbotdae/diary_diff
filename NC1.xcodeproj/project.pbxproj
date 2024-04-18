@@ -15,9 +15,10 @@
 		4C6E487C2BCBC359006BDBFE /* Block.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C6E487B2BCBC359006BDBFE /* Block.swift */; };
 		4C6E487E2BCBC3B7006BDBFE /* Journey.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C6E487D2BCBC3B7006BDBFE /* Journey.swift */; };
 		4C6E48812BCBC97F006BDBFE /* Date+DateFormatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C6E48802BCBC97F006BDBFE /* Date+DateFormatter.swift */; };
+		4C98A55B2BD0EA02002B3BAB /* TomorrowEditView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C98A55A2BD0EA02002B3BAB /* TomorrowEditView.swift */; };
+		4C98A55D2BD0EA0D002B3BAB /* TodayEditView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C98A55C2BD0EA0D002B3BAB /* TodayEditView.swift */; };
 		4C9D26CF2BD03046003B1CD1 /* DayDiaryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C9D26CE2BD03046003B1CD1 /* DayDiaryView.swift */; };
 		4C9D26D12BD0323F003B1CD1 /* DummyBlock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C9D26D02BD0323F003B1CD1 /* DummyBlock.swift */; };
-		4C9D26D32BD035C7003B1CD1 /* EditDiarySheetView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C9D26D22BD035C7003B1CD1 /* EditDiarySheetView.swift */; };
 		4CC4A08D2BCD5C2B00A31EB0 /* TabSplitView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CC4A08C2BCD5C2B00A31EB0 /* TabSplitView.swift */; };
 		4CE31C1D2BCC03DC002FF801 /* DiaryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CE31C1C2BCC03DC002FF801 /* DiaryView.swift */; };
 /* End PBXBuildFile section */
@@ -32,9 +33,10 @@
 		4C6E487B2BCBC359006BDBFE /* Block.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Block.swift; sourceTree = "<group>"; };
 		4C6E487D2BCBC3B7006BDBFE /* Journey.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Journey.swift; sourceTree = "<group>"; };
 		4C6E48802BCBC97F006BDBFE /* Date+DateFormatter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Date+DateFormatter.swift"; sourceTree = "<group>"; };
+		4C98A55A2BD0EA02002B3BAB /* TomorrowEditView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TomorrowEditView.swift; sourceTree = "<group>"; };
+		4C98A55C2BD0EA0D002B3BAB /* TodayEditView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodayEditView.swift; sourceTree = "<group>"; };
 		4C9D26CE2BD03046003B1CD1 /* DayDiaryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DayDiaryView.swift; sourceTree = "<group>"; };
 		4C9D26D02BD0323F003B1CD1 /* DummyBlock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DummyBlock.swift; sourceTree = "<group>"; };
-		4C9D26D22BD035C7003B1CD1 /* EditDiarySheetView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditDiarySheetView.swift; sourceTree = "<group>"; };
 		4CC4A08C2BCD5C2B00A31EB0 /* TabSplitView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabSplitView.swift; sourceTree = "<group>"; };
 		4CE31C1C2BCC03DC002FF801 /* DiaryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiaryView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -101,11 +103,12 @@
 			isa = PBXGroup;
 			children = (
 				4C6E48772BCACCDA006BDBFE /* ListDropDown.swift */,
+				4CC4A08C2BCD5C2B00A31EB0 /* TabSplitView.swift */,
 				4CE31C1C2BCC03DC002FF801 /* DiaryView.swift */,
 				4C9D26CE2BD03046003B1CD1 /* DayDiaryView.swift */,
-				4CC4A08C2BCD5C2B00A31EB0 /* TabSplitView.swift */,
+				4C98A55A2BD0EA02002B3BAB /* TomorrowEditView.swift */,
+				4C98A55C2BD0EA0D002B3BAB /* TodayEditView.swift */,
 				4C31BD532BCE5C11006FCA9E /* BlockView.swift */,
-				4C9D26D22BD035C7003B1CD1 /* EditDiarySheetView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -191,9 +194,10 @@
 				4C9D26CF2BD03046003B1CD1 /* DayDiaryView.swift in Sources */,
 				4C6E487E2BCBC3B7006BDBFE /* Journey.swift in Sources */,
 				4C31BD542BCE5C11006FCA9E /* BlockView.swift in Sources */,
+				4C98A55D2BD0EA0D002B3BAB /* TodayEditView.swift in Sources */,
+				4C98A55B2BD0EA02002B3BAB /* TomorrowEditView.swift in Sources */,
 				4C9D26D12BD0323F003B1CD1 /* DummyBlock.swift in Sources */,
 				4C6E48812BCBC97F006BDBFE /* Date+DateFormatter.swift in Sources */,
-				4C9D26D32BD035C7003B1CD1 /* EditDiarySheetView.swift in Sources */,
 				4C6E487C2BCBC359006BDBFE /* Block.swift in Sources */,
 				4CC4A08D2BCD5C2B00A31EB0 /* TabSplitView.swift in Sources */,
 				4C6E48782BCACCDA006BDBFE /* ListDropDown.swift in Sources */,
