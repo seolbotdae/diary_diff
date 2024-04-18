@@ -48,6 +48,12 @@ struct TodayEditView: View {
                     Text("이전 썸네일은 자동으로 해제됩니다.")
                 }
             }
+            .onAppear {
+                // 만약, 블럭 내부에 이전 내용이 적혀 있다면 변경해야함.
+                if let target = blocks.first(where: { $0.id == selectedBlockId}) {
+                    ThumbnailToggle = target.isThumbnail
+                }
+            }
         }
         .navigationTitle("내용 입력")
         .navigationBarTitleDisplayMode(.inline)
@@ -81,6 +87,12 @@ struct TodayEditView: View {
             if currentContent.trimmingCharacters(in: .whitespacesAndNewlines) == "" && photoTestText.trimmingCharacters(in: .whitespacesAndNewlines) == "" {
                 blocks.remove(at: targetIdx)
             } else {
+                // thumbnail 지정 -> 다 털어내고 썸네일로 만들기
+                if ThumbnailToggle == true {
+                    for i in blocks {
+                        i.isThumbnail = false
+                    }
+                }
                 blocks[targetIdx] = DummyBlock(id: selectedBlockId, photo: photoTestText, content: prevContent, editedContent: currentContent, isThumbnail: ThumbnailToggle)
             }
         } else {
@@ -89,6 +101,12 @@ struct TodayEditView: View {
             if currentContent.trimmingCharacters(in: .whitespacesAndNewlines) == "" && photoTestText.trimmingCharacters(in: .whitespacesAndNewlines) == "" {
                 
             } else {
+                // thumbnail 지정 -> 다 털어내고 썸네일로 만들기
+                if ThumbnailToggle == true {
+                    for i in blocks {
+                        i.isThumbnail = false
+                    }
+                }
                 // 새 글 추가를 뜻합니다.
                 if selectedBlockId == -1 {
                     blocks.append(DummyBlock(id: blocks.count, photo: photoTestText, content: "", editedContent: currentContent, isThumbnail: ThumbnailToggle))
