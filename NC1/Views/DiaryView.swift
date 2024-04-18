@@ -103,8 +103,12 @@ struct DiaryView: View {
             let tomorrowJourney = Journey(id: Date.getDateId(date: tomorrow), blocks: [])
             let todayJourney = Journey(id: Date.getDateId(date: today), blocks: [])
             
+            
             modelContext.insert(tomorrowJourney)
             modelContext.insert(todayJourney)
+            
+            todayJourney.blocks = [Block(id: 0, journey: todayJourney, content: "test", isThumbnail: false)]
+            
         }
         .padding(.top, 20)
         .padding(.horizontal, 16)

@@ -14,6 +14,8 @@ struct DayDiaryView: View {
     let journeyId: Int
     let formattedDate: String
     
+    @State var didFinishSetup = false
+    
     // 임시로 사용할 Blocks
     @State var dummyBlocks: [DummyBlock] = []
 
@@ -37,7 +39,11 @@ struct DayDiaryView: View {
                 ForEach(dummyBlocks, id: \.uuid) { item in
                     Section {
                         NavigationLink {
-                            EditDiarySheetView(type: .tomorrow, isSheetShow: $isSheetShow, blocks: $dummyBlocks, selectedBlockId: item.id)
+                            if Date.getDateId(date: journeyDate) == Date.getDateId(date: Date()) {
+                                EditDiarySheetView(type: .today, isSheetShow: $isSheetShow, blocks: $dummyBlocks, selectedBlockId: item.id)
+                            } else {
+                                EditDiarySheetView(type: .tomorrow, isSheetShow: $isSheetShow, blocks: $dummyBlocks, selectedBlockId: item.id)
+                            }
                         } label: {
                             BlockView(isThumbnail: false, photo: nil, prevContent: item.content, editedContent: nil)
                         }
@@ -52,7 +58,11 @@ struct DayDiaryView: View {
             
             /// 블록이 추가되고, sheet가 올라오고, 즉시 textEditor에 focus가 걸립니다.
             NavigationLink {
-                EditDiarySheetView(type: .tomorrow, isSheetShow: $isSheetShow, blocks: $dummyBlocks, selectedBlockId: -1)
+                if Date.getDateId(date: journeyDate) == Date.getDateId(date: Date()) {
+                    EditDiarySheetView(type: .today, isSheetShow: $isSheetShow, blocks: $dummyBlocks, selectedBlockId: -1)
+                } else {
+                    EditDiarySheetView(type: .tomorrow, isSheetShow: $isSheetShow, blocks: $dummyBlocks, selectedBlockId: -1)
+                }
             } label: {
                 HStack(alignment: .center, spacing: 10) {
                     Spacer()
@@ -82,7 +92,11 @@ struct DayDiaryView: View {
             }
         }
         .onAppear {
-            load()
+            if !didFinishSetup {
+                load()
+                // Mark setup as finished
+                didFinishSetup = true
+            }
         }
     }
     
