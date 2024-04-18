@@ -21,13 +21,38 @@ struct TomorrowEditView: View {
     
     @Environment(\.dismiss) private var dismiss
     
+    init(selectedBlockId: Int, blocks: Binding<[DummyBlock]>) {
+        self.selectedBlockId = selectedBlockId
+        _blocks = blocks
+        _textFieldInput = State(initialValue: textFieldInput)
+        self.textEditorFocus = false
+        self.textFieldInput = ""
+        
+        UITextView.appearance().backgroundColor = .clear
+    }
+    
     var body: some View {
         VStack {
+            Text("")
+                .padding(.vertical, 10)
+            
             TextEditor(text: $textFieldInput)
+                .foregroundStyle(.white)
+                .font(.body)
+                .padding(.top, 10)
+                .padding(.horizontal, 20)
+                .padding(.bottom, 10)
+                .background(Color.gray.opacity(0.2))
+                .scrollContentBackground(.hidden)
+                .lineSpacing(10)
+                .clipShape(RoundedRectangle(cornerRadius: 10))
+                .frame(height: 300)
                 .onAppear {
                     textEditorFocus.toggle()
                 }
                 .focused($textEditorFocus)
+            
+            Spacer()
         }
         .navigationTitle("내용 입력")
         .navigationBarTitleDisplayMode(.inline)
