@@ -23,11 +23,13 @@ struct BlockView: View {
         ///
         /// edited 있다 -> 수정블럭이 된다.
         /// photo 있다 -> photo 넣는다.
+    
         VStack(alignment: .leading) {
             if isThumbnail {
                 HStack {
                     Text("썸네일로 설정됨")
                         .font(.system(size: 20, weight: .bold))
+                        .foregroundColor(Color(red: 0.46, green: 0.45, blue: 0.9))
                     
                     Spacer()
                 }
