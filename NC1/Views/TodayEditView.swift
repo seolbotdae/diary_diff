@@ -121,7 +121,20 @@ struct TodayEditView: View {
             print(targetIdx)
             // 수정했는데 내용이 없다
             if currentContent.trimmingCharacters(in: .whitespacesAndNewlines) == "" && photoTestText.trimmingCharacters(in: .whitespacesAndNewlines) == "" {
-                blocks.remove(at: targetIdx)
+//                blocks.remove(at: targetIdx)
+                if ThumbnailToggle == true {
+                    for i in blocks {
+                        i.isThumbnail = false
+                    }
+                }
+                
+                if photoTestText == "" {
+                    blocks[targetIdx] = DummyBlock(id: selectedBlockId, photo: nil, content: prevContent, editedContent: nil, isThumbnail: ThumbnailToggle)
+                } else {
+                    blocks[targetIdx] = DummyBlock(id: selectedBlockId, photo: photoTestText, content: prevContent, editedContent: nil, isThumbnail: ThumbnailToggle)
+                }
+                
+                
             } else {
                 // thumbnail 지정 -> 다 털어내고 썸네일로 만들기
                 if ThumbnailToggle == true {
@@ -129,7 +142,12 @@ struct TodayEditView: View {
                         i.isThumbnail = false
                     }
                 }
-                blocks[targetIdx] = DummyBlock(id: selectedBlockId, photo: photoTestText, content: prevContent, editedContent: currentContent, isThumbnail: ThumbnailToggle)
+                
+                if photoTestText == "" {
+                    blocks[targetIdx] = DummyBlock(id: selectedBlockId, photo: nil, content: prevContent, editedContent: currentContent, isThumbnail: ThumbnailToggle)
+                } else {
+                    blocks[targetIdx] = DummyBlock(id: selectedBlockId, photo: photoTestText, content: prevContent, editedContent: currentContent, isThumbnail: ThumbnailToggle)
+                }
             }
         } else {
             // 새로 추가합니다.
@@ -145,7 +163,11 @@ struct TodayEditView: View {
                 }
                 // 새 글 추가를 뜻합니다.
                 if selectedBlockId == -1 {
-                    blocks.append(DummyBlock(id: blocks.count, photo: photoTestText, content: "", editedContent: currentContent, isThumbnail: ThumbnailToggle))
+                    if photoTestText == "" {
+                        blocks.append(DummyBlock(id: blocks.count, photo: nil, content: "", editedContent: currentContent, isThumbnail: ThumbnailToggle))
+                    } else {
+                        blocks.append(DummyBlock(id: blocks.count, photo: photoTestText, content: "", editedContent: currentContent, isThumbnail: ThumbnailToggle))
+                    }
                 }
             }
         }
