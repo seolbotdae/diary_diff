@@ -75,11 +75,15 @@ struct BlockView: View {
                     }
                 }
                 else {
-                    Text(content!)
+                    if let content = content {
+                        Text(content)
+                    }
                 }
             } else {
                 VStack(alignment: .leading) {
-                    Text(content!)
+                    if let content = content {
+                        Text(content)
+                    }
                 }
             }
         }

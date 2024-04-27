@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		4C02B5EB2BD2098F001826C3 /* DiaryListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C02B5EA2BD2098F001826C3 /* DiaryListView.swift */; };
 		4C31BD542BCE5C11006FCA9E /* BlockView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C31BD532BCE5C11006FCA9E /* BlockView.swift */; };
 		4C6E48682BCAC9A9006BDBFE /* NC1App.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C6E48672BCAC9A9006BDBFE /* NC1App.swift */; };
 		4C6E486E2BCAC9AB006BDBFE /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 4C6E486D2BCAC9AB006BDBFE /* Assets.xcassets */; };
@@ -24,6 +25,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		4C02B5EA2BD2098F001826C3 /* DiaryListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiaryListView.swift; sourceTree = "<group>"; };
 		4C31BD532BCE5C11006FCA9E /* BlockView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlockView.swift; sourceTree = "<group>"; };
 		4C6E48642BCAC9A9006BDBFE /* NC1.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = NC1.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		4C6E48672BCAC9A9006BDBFE /* NC1App.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NC1App.swift; sourceTree = "<group>"; };
@@ -109,6 +111,7 @@
 				4C98A55A2BD0EA02002B3BAB /* TomorrowEditView.swift */,
 				4C98A55C2BD0EA0D002B3BAB /* TodayEditView.swift */,
 				4C31BD532BCE5C11006FCA9E /* BlockView.swift */,
+				4C02B5EA2BD2098F001826C3 /* DiaryListView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -192,6 +195,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				4C9D26CF2BD03046003B1CD1 /* DayDiaryView.swift in Sources */,
+				4C02B5EB2BD2098F001826C3 /* DiaryListView.swift in Sources */,
 				4C6E487E2BCBC3B7006BDBFE /* Journey.swift in Sources */,
 				4C31BD542BCE5C11006FCA9E /* BlockView.swift in Sources */,
 				4C98A55D2BD0EA0D002B3BAB /* TodayEditView.swift in Sources */,

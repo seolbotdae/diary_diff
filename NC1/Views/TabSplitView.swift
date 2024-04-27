@@ -18,7 +18,7 @@ struct TabSplitView: View {
                         Label("일기", systemImage: "pencil.circle.fill")
                     }.tag(1)
                 
-                DiaryView()
+                DiaryListView()
                     .tabItem {
                         Label("지난 기록", systemImage: "list.bullet.clipboard.fill")
                     }.tag(2)
