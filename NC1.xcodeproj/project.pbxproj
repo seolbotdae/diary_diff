@@ -27,6 +27,7 @@
 /* Begin PBXFileReference section */
 		4C02B5EA2BD2098F001826C3 /* DiaryListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiaryListView.swift; sourceTree = "<group>"; };
 		4C31BD532BCE5C11006FCA9E /* BlockView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlockView.swift; sourceTree = "<group>"; };
+		4C4514642BDE9D5D0021A65B /* CommitConvention.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = CommitConvention.md; sourceTree = "<group>"; };
 		4C6E48642BCAC9A9006BDBFE /* NC1.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = NC1.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		4C6E48672BCAC9A9006BDBFE /* NC1App.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NC1App.swift; sourceTree = "<group>"; };
 		4C6E486D2BCAC9AB006BDBFE /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -73,6 +74,7 @@
 		4C6E48662BCAC9A9006BDBFE /* NC1 */ = {
 			isa = PBXGroup;
 			children = (
+				4C4514642BDE9D5D0021A65B /* CommitConvention.md */,
 				4C6E487F2BCBC909006BDBFE /* Extensions */,
 				4C6E487A2BCBC308006BDBFE /* Views */,
 				4C6E48792BCBC2EF006BDBFE /* Models */,
