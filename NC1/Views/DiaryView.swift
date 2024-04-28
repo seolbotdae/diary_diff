@@ -11,24 +11,20 @@ import SwiftData
 struct DiaryView: View {
     @Environment(\.modelContext) private var modelContext
     
-    let tomorrow = Date() + 86400
-    let today = Date()
+    let tomorrowDate = Date() + 86400
+    let todayDate = Date()
     
-    @State var dateFormatter: DateFormatter = DateFormatter()
+    let MDDateFormatter = Date.getDateFormatter(format: "M월 d일")
     
-    @State var tomorrowDateString: String = ""
-    @State var todayDateString: String = ""
-    
-    // onAppear를 단 한번만 실행시키기 위한
-    @State var didFinishSetup: Bool = false
-    
-    @Query private var tomorrowJourney: [Journey]
-    @Query private var todayJourney: [Journey]
+    @State var tomorrowJourney: Journey?
+    @State var todayJourney: Journey?
+
+    @State var temp: Bool = false
     
     var body: some View {
         VStack {
             NavigationLink {
-                DayDiaryView(journeyDate: tomorrow)
+//                DayDiaryView(journeyDate: tomorrow)
 //                NextDayDiaryView(journeyDate: tomorrow)
             } label: {
                 GroupBox {
@@ -39,18 +35,18 @@ struct DiaryView: View {
                             
                             Spacer()
                             
-                            Text(tomorrowDateString)
+                            Text(MDDateFormatter.string(from: tomorrowDate))
                                 .font(.title2)
                                 .foregroundStyle(.gray)
                         }
                         .padding(.bottom, 1)
 
                         HStack(alignment: .center) {
-                            if tomorrowJourney.count >= 1 {
-                                if tomorrowJourney[0].blocks.count > 0 {
-                                    Text("작성된 일기가 있습니다. 내일 확인해 보세요!")
-                                } else {
+                            if let target = tomorrowJourney {
+                                if target.blocks.isEmpty {
                                     Text("아직 일기를 작성하지 않았습니다.")
+                                } else {
+                                    Text("작성된 일기가 있습니다. 내일 확인해 보세요!")
                                 }
                             } else {
                                 Text("아직 일기를 작성하지 않았습니다.")
@@ -63,7 +59,7 @@ struct DiaryView: View {
             .padding(.bottom, 12)
             
             NavigationLink {
-                DayDiaryView(journeyDate: today)
+//                DayDiaryView(journeyDate: today)
             } label: {
                 GroupBox {
                     VStack {
@@ -73,21 +69,18 @@ struct DiaryView: View {
                             
                             Spacer()
                             
-                            Text(todayDateString)
+                            Text(MDDateFormatter.string(from: todayDate))
                                 .font(.title2)
                                 .foregroundStyle(.gray)
                         }
                         .padding(.bottom, 1)
 
                         HStack(alignment: .center) {
-                            if todayJourney.count >= 1 {
-                                if todayJourney[0].blocks.count > 0 {
-                                    VStack {                                    
-                                        Text("작성된 일기가 있습니다")
-                                        Text("어떤 점이 달라졌는지 작성해 주세요!")
-                                    }
-                                } else {
+                            if let target = todayJourney {
+                                if target.blocks.isEmpty {
                                     Text("아직 일기를 작성하지 않았습니다.")
+                                } else {
+                                    Text("작성된 일기가 있습니다. 내일 확인해 보세요!")
                                 }
                             } else {
                                 Text("아직 일기를 작성하지 않았습니다.")
@@ -101,48 +94,46 @@ struct DiaryView: View {
             Spacer()
         }
         .onAppear {
-            if !didFinishSetup {
-                print("모델 초기화!")
-                dateFormatter.dateFormat = "M월 d일"
-                
-                tomorrowDateString = dateFormatter.string(from: tomorrow)
-                todayDateString = dateFormatter.string(from: today)
-                
-                let tomorrowJourney = Journey(id: Date.getDateId(date: tomorrow), blocks: [])
-                let todayJourney = Journey(id: Date.getDateId(date: today), blocks: [])
-                
-                
-                modelContext.insert(tomorrowJourney)
-                modelContext.insert(todayJourney)
-                
-                todayJourney.blocks = [
-                    Block(id: 0, journey: todayJourney, content: "test1", isThumbnail: false),
-                    Block(id: 1, journey: todayJourney, content: "test2", isThumbnail: false),
-                    Block(id: 2, journey: todayJourney, content: "test3", isThumbnail: false),
-                    Block(id: 3, journey: todayJourney, content: "test4", isThumbnail: false),
-                    Block(id: 4, journey: todayJourney, content: "test5", isThumbnail: false)
-                ]
-                // Mark setup as finished
-                didFinishSetup = true
+            tomorrowJourney = fetchJourney(id: Date.getParsedDate(date: tomorrowDate))
+            todayJourney = fetchJourney(id: Date.getParsedDate(date: todayDate))
+
+            if tomorrowJourney == nil {
+                let newJourney = Journey(id: Date.getParsedDate(date: tomorrowDate))
+                modelContext.insert(newJourney)
+                tomorrowJourney = fetchJourney(id: Date.getParsedDate(date: tomorrowDate))
             }
+            
+            if todayJourney == nil {
+                let newJourney = Journey(id: Date.getParsedDate(date: todayDate))
+                modelContext.insert(newJourney)
+                todayJourney = fetchJourney(id: Date.getParsedDate(date: todayDate))
+            }
+            
+            print(tomorrowJourney!.id)
+            print(todayJourney!.id)
         }
         .padding(.top, 20)
         .padding(.horizontal, 16)
     }
-    
-    init() {
-        let nextDateId = Date.getDateId(date: Date() + 86400)
-        let currentDateId = Date.getDateId(date: Date())
-        
-        let nextDatePredicate = #Predicate<Journey> { J in
-            J.id == nextDateId
+
+    func fetchJourney(id: ParsedDate) -> Journey? {
+        do {
+            let predicate = #Predicate<Journey> { $0.id == id }
+            
+            let descriptor = FetchDescriptor(predicate: predicate)
+            
+            let journeys = try modelContext.fetch(descriptor)
+            
+            if !journeys.isEmpty {
+                return journeys[0]
+            } else {
+                return nil
+            }
+        } catch {
+            print("none!")
         }
-        _tomorrowJourney = Query(filter: nextDatePredicate)
         
-        let currentDatePredicate = #Predicate<Journey> { J in
-            J.id == currentDateId
-        }
-        _todayJourney = Query(filter: currentDatePredicate)
+        return nil
     }
 }
 

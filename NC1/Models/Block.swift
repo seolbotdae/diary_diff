@@ -8,11 +8,11 @@
 import Foundation
 import SwiftData
 
+/// 0 부터 시작하는 Int 타입입니다. 순서를 나타냅니다.
+typealias Order = Int
+
 @Model
 final class Block {
-    /// 0 부터 시작하는 Int 타입입니다. 순서를 나타냅니다.
-    typealias Order = Int
-    
     var id: UUID
     var journey: Journey
     var photo: Data?

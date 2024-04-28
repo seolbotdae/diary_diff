@@ -8,6 +8,22 @@
 import Foundation
 
 extension Date {
+    static func getDateFormatter(format: String) -> DateFormatter {
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = format
+        dateFormatter.locale = Locale(identifier: "ko_KR")
+        
+        return dateFormatter
+    }
+    
+    static func getParsedDate(date: Date) -> Int {
+        let formatter = Date.getDateFormatter(format: "yyyyMMdd")
+        formatter.locale = Locale(identifier: "ko_KR")
+        let dateString = formatter.string(from: date)
+        
+        return Int(dateString) ?? 0
+    }
+    
     static func getDateId(date: Date) -> Int {
         let dateFormatter = DateFormatter()
         
